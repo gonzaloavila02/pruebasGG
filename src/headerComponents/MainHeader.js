@@ -4,10 +4,10 @@ export const MainHeader = () => {
     return (
         <div>
             <div>
-                <image></image>
+                <img></img>
             </div>
             <div>
-                <image></image>
+                <img></img>
             </div>
 
             <button className="btn botonContacto">Contacto</button>

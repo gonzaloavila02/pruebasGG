@@ -1,26 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useLayoutEffect} from 'react';
+import '../styles/FooterStyles/footer.scss'
 import {LogoCompany} from "./LogoCompany";
-import {SocialMedia} from "./SocialMedia";
 import {Options} from "./Options";
+import {SocialMedia} from "./SocialMedia";
 
 export const FooterMain = () => {
     const [fixedFooter, setFixedFooter] = useState(false);
 
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const ajustarFooter = () => {
-            const footerHeight = document.querySelector('footer').getBoundingClientRect().height;
-            const offsetTop = document.querySelector('footer').offsetTop;
-            const windowHeight = window.innerHeight;
-            const footerStyle = document.querySelector('footer')
+            const footer = document.querySelector('footer');
+            if (footer) {
+                const windowHeight = window.innerHeight;
+                const rect = footer.getBoundingClientRect();
+                const offsetTop = rect.top + window.scrollY;
 
-            setFixedFooter(offsetTop + footerHeight < windowHeight);
-            if (fixedFooter){
-                footerStyle.classList.add('footerMain')
-            }else{
-                footerStyle.classList.remove('footerMain')
+                console.log(offsetTop +" "+rect.height+" "+ windowHeight)
+                const value = offsetTop + rect.height < windowHeight;
+                console.log(value)
+                setFixedFooter(value);
+
             }
+
         };
+
         ajustarFooter(); // Ajustar al cargar la página
 
         window.addEventListener('resize', ajustarFooter);
@@ -28,26 +32,19 @@ export const FooterMain = () => {
         // Limpiar el event listener al desmontar el componente
         return () => {
             window.removeEventListener('resize', ajustarFooter);
+
         };
     }, []);
 
 
+
     return (
-        <footer className={"d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top" + (fixedFooter ? 'footerMain' : '' )} style={{position: fixedFooter ? 'fixed' : 'relative'}}>
-            <p className="col-md-4 mb-0 text-body-secondary">&copy; 2023 Company, Inc</p>
-
-            <a href="/"
-               className="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                <logoCompany/>
-            </a>
-
-            <ul className="nav col-md-4 justify-content-end">
-                <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">Home</a></li>
-                <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">Features</a></li>
-                <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">Pricing</a></li>
-                <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">FAQs</a></li>
-                <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">About</a></li>
-            </ul>
+        <footer className={"container"+(fixedFooter?" footerMain":"")} style={{position: fixedFooter ? 'fixed' : 'relative'}}>
+            <div className="row">
+                <div className="col"><Options/></div>
+                <div className="col"><LogoCompany/></div>
+                <div className="col"><SocialMedia/></div>
+            </div>
         </footer>
     )
 }
