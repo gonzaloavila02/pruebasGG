@@ -18,7 +18,7 @@ export const FooterMain = () => {
                 const offsetTop = rect.top + window.scrollY;
 
                 const spacebottom = offsetTop + rect.height < windowHeight;//esto verifico si hay espacio abajo del footer
-                const spacebetween = offsetTop - mainHeight > 107;//esto verifico si hay espacio entre media no coloco 0 ya que el espacio minimo que hay entre elementos por defecto es este número
+                const spacebetween = offsetTop - mainHeight > 200;//esto verifico si hay espacio entre media no coloco 0 ya que el espacio minimo que hay entre elementos por defecto es este número
 
                 setFixedFooter(spacebottom || spacebetween);// se coloca fixed cuando hay espacio hacia abajo o(or) si hay espacio entre elementos superior a lo indicado
 
