@@ -10,7 +10,7 @@ function App() {
           <header className="headerStyle">
               <MainHeader/>
           </header>
-          <div>
+          <div id="main">
               <PrimerComponente/>
               <SegundoComponente/>
           </div>

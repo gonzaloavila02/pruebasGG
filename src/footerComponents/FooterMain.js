@@ -12,14 +12,15 @@ export const FooterMain = () => {
         const ajustarFooter = () => {
             const footer = document.querySelector('footer');
             if (footer) {
+                const mainHeight = document.getElementById('main').offsetHeight;
                 const windowHeight = window.innerHeight;
                 const rect = footer.getBoundingClientRect();
                 const offsetTop = rect.top + window.scrollY;
 
-                console.log(offsetTop +" "+rect.height+" "+ windowHeight)
-                const value = offsetTop + rect.height < windowHeight;
-                console.log(value)
-                setFixedFooter(value);
+                const spacebottom = offsetTop + rect.height < windowHeight;//esto verifico si hay espacio abajo del footer
+                const spacebetween = offsetTop - mainHeight > 107;//esto verifico si hay espacio entre media no coloco 0 ya que el espacio minimo que hay entre elementos por defecto es este número
+
+                setFixedFooter(spacebottom || spacebetween);// se coloca fixed cuando hay espacio hacia abajo o(or) si hay espacio entre elementos superior a lo indicado
 
             }
 
